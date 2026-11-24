@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI로 배우는 AI — 충남교육청 중등교육과 클로드 활용 가이드" />
+  <title>AI로 배우는 AI</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <div>
+        <h1 class="site-title" id="appTitle">AI로 배우는 AI</h1>
+        <p class="site-subtitle" id="appSubtitle">충남교육청 AI 활용 연수 · 학습 가이드</p>
+      </div>
+      <nav class="site-nav" id="siteNav"></nav>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <!-- 뷰 컨테이너. 라우팅에 따라 홈/트랙 상세가 교체됩니다. -->
+    <div id="view"></div>
+  </main>
+
+  <footer class="site-footer">
+    <p>진도는 이 브라우저에만 저장돼요. 다른 기기에서는 이어지지 않습니다.</p>
+  </footer>
+
+  <!-- 미션 상세 모달 -->
+  <div class="modal" id="missionModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__panel" role="document">
+      <button class="modal__close" type="button" aria-label="닫기" data-close-modal>×</button>
+      <div class="modal__body" id="missionModalBody"></div>
+    </div>
+  </div>
+
+  <!-- 토스트 -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- 데이터 파일 -->
+  <script src="./data/config.js"></script>
+  <script src="./data/tracks.js"></script>
+  <script src="./data/missions.js"></script>
+
+  <!-- 앱 -->
+  <script src="./app.js"></script>
+</body>
+</html>
