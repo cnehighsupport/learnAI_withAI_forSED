@@ -270,6 +270,13 @@
         onclick: function () { go(n.hash); }
       }));
     });
+    if (CONFIG.links.gallery) {
+      $nav.appendChild(el("a", {
+        class: "nav-gallery",
+        href: CONFIG.links.gallery,
+        text: "갤러리"
+      }));
+    }
     $nav.appendChild(el("a", {
       class: "nav-claude",
       href: CONFIG.links.claude,

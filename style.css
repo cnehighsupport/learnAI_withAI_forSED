@@ -937,3 +937,9 @@ a { color: inherit; }
   .dodont { grid-template-columns: 1fr; }
   .step { padding: 16px; gap: 12px; }
 }
+
+.nav-gallery {
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft);
+  padding: 6px 12px; font-size: 13px; border-radius: 999px; text-decoration: none;
+}
+.nav-gallery:hover { border-color: var(--ink); color: var(--ink); }

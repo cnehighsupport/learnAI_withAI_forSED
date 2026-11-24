@@ -21,7 +21,7 @@ window.APP_CONFIG = {
     claude: "https://claude.ai",
     download: "https://claude.ai/download",
     submitForm: "",   // 제출 양식 주소 (도구 확정 후)
-    gallery: ""       // cne-ai-gallery 주소 (레포 준비 후)
+    gallery: "./gallery/"   // 같은 저장소의 갤러리 화면
   },
 
   contact: "막히면 과 담당자에게 물어보세요. (이 페이지는 인터넷에 공개돼 있어 연락처는 적지 않았어요.)",
