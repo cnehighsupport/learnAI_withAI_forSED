@@ -943,3 +943,17 @@ a { color: inherit; }
   padding: 6px 12px; font-size: 13px; border-radius: 999px; text-decoration: none;
 }
 .nav-gallery:hover { border-color: var(--ink); color: var(--ink); }
+
+/* 공용 스킬 */
+.start-strip { grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); }
+.plain-steps { margin: 0; padding-left: 22px; }
+.plain-steps li { margin: 6px 0; }
+.skill-card__name { margin: 0 0 2px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; color: var(--accent); }
+.skill-card__dl { display: grid; grid-template-columns: 4.5em minmax(0, 1fr); gap: 4px 10px; margin: 8px 0 0; font-size: 14.5px; }
+.skill-card__dl dt { color: var(--ink-mute); }
+.skill-card__dl dd { margin: 0; }
+.skill-card__tips { margin: 10px 0 0; padding-left: 20px; color: var(--ink-soft); font-size: 14px; }
+.skill-card__tips li { margin: 3px 0; }
+.steps--flow { margin-top: 14px; }
+.nocode { margin-top: 20px; }
+.nocode .copy-btn { flex: none; min-width: 0; margin-top: 12px; }

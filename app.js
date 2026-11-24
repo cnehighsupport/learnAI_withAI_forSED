@@ -250,6 +250,7 @@
     { name: "home",   hash: "",        label: "홈" },
     { name: "start",  hash: "#start",  label: "계정 시작" },
     { name: "safety", hash: "#safety", label: "쓰기 전에 꼭" },
+    { name: "skills", hash: "#skills", label: "공용 스킬" },
     { name: "cards",  hash: "#cards",  label: "팀별 사례" }
   ];
 
@@ -294,6 +295,7 @@
     if (h === "#start") return { name: "start" };
     if (h === "#safety") return { name: "safety" };
     if (h === "#cards") return { name: "cards" };
+    if (h === "#skills") return { name: "skills" };
     return { name: "home" };
   }
 
@@ -324,9 +326,10 @@
   function renderStartStrip() {
     var section = el("section", { class: "start-strip" });
     var items = [
-      { n: "1", hash: "#start",  title: "계정 시작",     text: "초대 수락부터 첫 대화까지 5단계" },
+      { n: "1", hash: "#start",  title: "계정 시작",     text: "앱 설치·초대 수락부터 첫 대화까지" },
       { n: "2", hash: "#safety", title: "쓰기 전에 꼭",   text: "넣으면 안 되는 것, 기관 계정 수칙" },
-      { n: "3", hash: "#cards",  title: "우리 팀 사례",  text: "미션 빈칸에 넣어 볼 업무 예시" }
+      { n: "3", hash: "#cards",  title: "우리 팀 사례",  text: "미션 빈칸에 넣어 볼 업무 예시" },
+      { n: "4", hash: "#skills", title: "공용 스킬 6종", text: "말로 부탁하면 꺼내 쓰는 우리 과 작업 설명서" }
     ];
     items.forEach(function (it) {
       section.appendChild(el("button", {
@@ -429,6 +432,100 @@
     });
     faq.appendChild(el("div", { class: "table-wrap" }, table));
     c.appendChild(faq);
+    $view.appendChild(c);
+  }
+
+  // ── 공용 스킬 ─────────────────────────────────────────────────────
+
+  function renderSkills() {
+    $view.innerHTML = "";
+    var K = CONFIG.skills;
+    var c = el("div", { class: "page" });
+    c.appendChild(pageHead("공용 스킬", K.lede));
+
+    var how = el("ol", { class: "plain-steps" });
+    K.howto.forEach(function (x) { how.appendChild(el("li", { text: x })); });
+    c.appendChild(how);
+
+    c.appendChild(el("h2", { class: "section__title page-sub", text: "6종 한눈에 보기" }));
+    var list = el("div", { class: "cases" });
+    K.list.forEach(function (k) {
+      var card = el("article", { class: "case-card skill-card" });
+      card.appendChild(el("p", { class: "skill-card__name", text: k.name }));
+      card.appendChild(el("h3", { class: "case-card__title", text: k.title }));
+      card.appendChild(el("dl", { class: "skill-card__dl" }, [
+        el("dt", { text: "이럴 때" }), el("dd", { text: k.when }),
+        el("dt", { text: "결과물" }), el("dd", { text: k.output })
+      ]));
+      card.appendChild(el("p", { class: "case-card__label", text: "이렇게 말해 보세요" }));
+      card.appendChild(el("pre", { class: "prompt-block prompt-block--example", text: k.say }));
+      card.appendChild(el("div", { class: "copy-row" }, [
+        copyButton(function () { return k.say; }, "예시 복사", "복사됐어요. 내 업무에 맞게 바꿔서 클로드에 붙여 넣으세요.")
+      ]));
+      if (k.tips && k.tips.length) {
+        var ul = el("ul", { class: "skill-card__tips" });
+        k.tips.forEach(function (t) { ul.appendChild(el("li", { text: t })); });
+        card.appendChild(ul);
+      }
+      list.appendChild(card);
+    });
+    c.appendChild(list);
+
+    var rules = el("div", { class: "callout callout--warn" });
+    rules.appendChild(el("p", { class: "callout__title", text: "꼭 지켜 주세요" }));
+    var rl = el("ul");
+    K.rules.forEach(function (x) { rl.appendChild(el("li", { text: x })); });
+    rules.appendChild(rl);
+    c.appendChild(rules);
+
+    // 스킬 만들기·나누기
+    c.appendChild(el("h2", { class: "section__title page-sub", text: "스킬을 만들고 나누기" }));
+    var table = el("table", { class: "faq__table" });
+    K.vs.forEach(function (r, i) {
+      var tr = el("tr");
+      r.forEach(function (cell, j) { tr.appendChild(el(i === 0 || j === 0 ? "th" : "td", { text: cell })); });
+      table.appendChild(tr);
+    });
+    c.appendChild(el("div", { class: "table-wrap faq" }, table));
+
+    var flow = el("ol", { class: "steps steps--flow" });
+    K.flow.forEach(function (f, i) {
+      flow.appendChild(el("li", { class: "step" }, [
+        el("span", { class: "step__n", text: String(i + 1) }),
+        el("div", { class: "step__body" }, [
+          el("h3", { class: "step__title", text: f.title }),
+          el("p", { class: "step__text", text: f.body })
+        ])
+      ]));
+    });
+    c.appendChild(flow);
+
+    var row = el("div", { class: "page-actions" });
+    ["3-4", "3-5", "1-4"].forEach(function (mid) {
+      var m = findMission(mid);
+      if (m) row.appendChild(el("button", {
+        type: "button", class: "ghost-btn", text: mid + " " + m.title,
+        onclick: function () { openMission(mid); }
+      }));
+    });
+    c.appendChild(row);
+
+    var nc = el("div", { class: "rule nocode" });
+    nc.appendChild(el("h3", { class: "rule__title", text: "만들 줄 몰라도 괜찮아요" }));
+    nc.appendChild(el("p", { class: "rule__text", text: K.noCode }));
+    var cl = el("ul", { class: "skill-card__tips" });
+    K.candidates.forEach(function (x) { cl.appendChild(el("li", { text: x[0] + " — " + x[1] })); });
+    nc.appendChild(el("p", { class: "rule__text", text: "이런 것들이 스킬 후보가 될 수 있어요." }));
+    nc.appendChild(cl);
+    if (CONFIG.links.ideaForm) {
+      nc.appendChild(el("a", {
+        class: "copy-btn link-btn", href: CONFIG.links.ideaForm, target: "_blank", rel: "noopener",
+        text: "스킬 후보·함께 정리할 정보 알려 주기 ↗"
+      }));
+    } else {
+      nc.appendChild(el("p", { class: "page-note", text: "후보를 알려 주는 양식은 곧 열어요. 그 전에는 담당자에게 바로 말해 주세요." }));
+    }
+    c.appendChild(nc);
     $view.appendChild(c);
   }
 
@@ -1015,6 +1112,7 @@
     else if (r.name === "start") renderStart();
     else if (r.name === "safety") renderSafety();
     else if (r.name === "cards") renderCards();
+    else if (r.name === "skills") renderSkills();
     else renderHome();
     renderNav();
     window.scrollTo(0, 0);
