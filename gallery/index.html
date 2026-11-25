@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="중등교육과 AI 갤러리 — 동료가 클로드로 만든 것과 그때 쓴 프롬프트" />
   <title>중등교육과 AI 갤러리</title>
+  <!-- 온마당 디자인 시스템 v2.1 (태그 고정) + Pretendard subset -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/curricenterhscne/cne-design-system@v2.1/tokens/design-tokens.css" />
   <link rel="stylesheet" href="../style.css" />
   <style>
     /* 갤러리 전용. 색·글꼴은 가이드 앱(style.css)과 같이 씁니다. */
@@ -39,9 +42,12 @@
 <body>
   <header class="site-header">
     <div class="site-header__inner">
-      <div>
+      <div class="site-brand">
+        <img class="site-brand__char" src="https://cdn.jsdelivr.net/gh/curricenterhscne/cne-design-system@v2.1/assets/characters/tokkumi.svg" alt="" aria-hidden="true" width="44" height="44" />
+        <div>
         <h1 class="site-title">중등교육과 AI 갤러리</h1>
         <p class="site-subtitle">동료가 클로드로 만든 것, 그리고 그때 쓴 프롬프트</p>
+        </div>
       </div>
       <nav class="site-nav">
         <a class="nav-claude" href="../">← 가이드 앱으로</a>

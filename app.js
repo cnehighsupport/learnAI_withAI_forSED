@@ -1118,7 +1118,14 @@
     window.scrollTo(0, 0);
   }
 
-  window.addEventListener("hashchange", render);
+  // 미션 창이 열린 채로 다른 화면으로 옮기면 창을 닫고 그립니다.
+  window.addEventListener("hashchange", function () {
+    if ($modal.getAttribute("aria-hidden") === "false") {
+      $modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+    render();
+  });
   render();
 
 })();
