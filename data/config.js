@@ -25,7 +25,7 @@ window.APP_CONFIG = {
     ideaForm: "",           // 「함께 정리할 정보·스킬 후보」 의견 양식 (만들면 채우기)
     publishDesk: "https://claude.ai/artifact/ErcLbZPGhkPR6qaMKdsBfS", // 웹 배포 신청함 (팀 계정 로그인 필요)
     publishedPages: "https://cnesed640.github.io/apps/",              // 게시된 페이지 모음
-    githubGuide: "https://claude.ai/artifact/WmhbTZY1Bm9r4oSWwkvouz"  // GitHub 계정 만들고 Claude에 연결하기 (팀 계정 로그인 필요)
+    githubGuide: "https://claude.ai/artifact/PgDHcpF9FXsZiLDrzasgNi"  // 큰 사이트 올리기 준비 카드뉴스 (팀 계정 로그인 필요)
   },
 
   contact: "막히면 과 담당자에게 물어보세요. (이 페이지는 인터넷에 공개돼 있어 연락처는 적지 않았어요.)",
@@ -262,7 +262,7 @@ window.APP_CONFIG = {
       "공문 원문, 과 내부 자료, 비밀번호·관리자 코드는 넣지 않아요.",
       "응답을 받아야 하면 Tally·구글 설문 링크를 페이지에 연결해요."
     ],
-    large: "하위 페이지가 많거나 이미지가 커서 한 파일(240KB)로 만들 수 없는 사이트는 본인 GitHub를 Claude에 한 번 연결해 두면 올릴 수 있어요. 그다음부터는 “배포 준비해 줘”라고 하면 Claude가 과 우편함에 올리고 전달 코드를 알려 주고, 신청함에서 「큰 사이트 (전달 코드)」를 골라 그 코드를 적으면 돼요. 처음 준비는 아래 안내서대로 15분이면 끝나요.",
+    large: "하위 페이지가 많거나 이미지가 커서 한 파일(240KB)로 만들 수 없는 사이트는 본인 GitHub를 Claude에 한 번 연결해 두면 올릴 수 있어요. 그다음부터는 “배포 준비해 줘”라고 하면 Claude가 과 우편함에 올리고 전달 코드를 알려 주고, 신청함에서 「큰 사이트 (전달 코드)」를 골라 그 코드를 적으면 돼요. 처음 준비는 아래 카드뉴스를 따라 15분이면 끝나요.",
     practice: {
       title: "실습: 매뉴얼 한 편 올려 보기",
       lede: "학교에 이미 보낸 공개용 매뉴얼(신청 방법 안내, 업무 처리 요령 등) 하나를 골라 hwp·pdf 그대로 새 대화에 붙이고 아래처럼 말해 보세요. 담당자 휴대전화나 학생 명단이 든 쪽은 빼고 시작하세요.",

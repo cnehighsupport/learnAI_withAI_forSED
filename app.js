@@ -575,7 +575,7 @@
       lg.appendChild(el("p", { class: "rule__text", text: P.large }));
       if (CONFIG.links.githubGuide) lg.appendChild(el("a", {
         class: "ghost-btn link-btn", href: CONFIG.links.githubGuide, target: "_blank", rel: "noopener",
-        text: "GitHub 계정 만들고 Claude에 연결하기 ↗"
+        text: "실제 화면으로 따라 하기 (카드뉴스) ↗"
       }));
       c.appendChild(el("div", { class: "page-sub" }, lg));
     }
