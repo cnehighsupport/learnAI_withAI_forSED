@@ -251,6 +251,7 @@
     { name: "start",  hash: "#start",  label: "계정 시작" },
     { name: "safety", hash: "#safety", label: "쓰기 전에 꼭" },
     { name: "skills", hash: "#skills", label: "공용 스킬" },
+    { name: "publish", hash: "#publish", label: "웹 배포" },
     { name: "cards",  hash: "#cards",  label: "팀별 사례" }
   ];
 
@@ -296,6 +297,7 @@
     if (h === "#safety") return { name: "safety" };
     if (h === "#cards") return { name: "cards" };
     if (h === "#skills") return { name: "skills" };
+    if (h === "#publish") return { name: "publish" };
     return { name: "home" };
   }
 
@@ -329,7 +331,8 @@
       { n: "1", hash: "#start",  title: "계정 시작",     text: "앱 설치·초대 수락부터 첫 대화까지" },
       { n: "2", hash: "#safety", title: "쓰기 전에 꼭",   text: "넣으면 안 되는 것, 기관 계정 수칙" },
       { n: "3", hash: "#cards",  title: "우리 팀 사례",  text: "미션 빈칸에 넣어 볼 업무 예시" },
-      { n: "4", hash: "#skills", title: "공용 스킬 6종", text: "말로 부탁하면 꺼내 쓰는 우리 과 작업 설명서" }
+      { n: "4", hash: "#skills", title: "공용 스킬 " + CONFIG.skills.list.length + "종", text: "말로 부탁하면 꺼내 쓰는 우리 과 작업 설명서" },
+      { n: "5", hash: "#publish", title: "웹 배포", text: "만든 페이지를 학교에 주소로 공개하기" }
     ];
     items.forEach(function (it) {
       section.appendChild(el("button", {
@@ -447,7 +450,7 @@
     K.howto.forEach(function (x) { how.appendChild(el("li", { text: x })); });
     c.appendChild(how);
 
-    c.appendChild(el("h2", { class: "section__title page-sub", text: "6종 한눈에 보기" }));
+    c.appendChild(el("h2", { class: "section__title page-sub", text: K.list.length + "종 한눈에 보기" }));
     var list = el("div", { class: "cases" });
     K.list.forEach(function (k) {
       var card = el("article", { class: "case-card skill-card" });
@@ -526,6 +529,81 @@
       nc.appendChild(el("p", { class: "page-note", text: "후보를 알려 주는 양식은 곧 열어요. 그 전에는 담당자에게 바로 말해 주세요." }));
     }
     c.appendChild(nc);
+    $view.appendChild(c);
+  }
+
+  // ── 웹 배포 ───────────────────────────────────────────────────────
+
+  function renderPublish() {
+    $view.innerHTML = "";
+    var P = CONFIG.publish;
+    var c = el("div", { class: "page" });
+    c.appendChild(pageHead("웹 배포", P.lede));
+
+    c.appendChild(el("h2", { class: "section__title page-sub", text: "이럴 때 쓰세요" }));
+    var when = el("ul", { class: "skill-card__tips" });
+    P.when.forEach(function (x) { when.appendChild(el("li", { text: x })); });
+    c.appendChild(when);
+    c.appendChild(el("p", { class: "page-note", text: P.internalOnly }));
+
+    c.appendChild(el("h2", { class: "section__title page-sub", text: "3단계로 올려요" }));
+    var steps = el("ol", { class: "steps steps--flow" });
+    P.steps.forEach(function (f, i) {
+      steps.appendChild(el("li", { class: "step" }, [
+        el("span", { class: "step__n", text: String(i + 1) }),
+        el("div", { class: "step__body" }, [
+          el("h3", { class: "step__title", text: f.title }),
+          el("p", { class: "step__text", text: f.body })
+        ])
+      ]));
+    });
+    c.appendChild(steps);
+    var links = el("div", { class: "page-actions" });
+    if (CONFIG.links.publishDesk) links.appendChild(el("a", {
+      class: "copy-btn link-btn", href: CONFIG.links.publishDesk, target: "_blank", rel: "noopener",
+      text: "웹 배포 신청함 열기 ↗"
+    }));
+    if (CONFIG.links.publishedPages) links.appendChild(el("a", {
+      class: "ghost-btn link-btn", href: CONFIG.links.publishedPages, target: "_blank", rel: "noopener",
+      text: "게시된 페이지 모음 ↗"
+    }));
+    c.appendChild(links);
+    c.appendChild(el("p", { class: "page-note", text: "신청함은 우리 과 팀 계정으로 로그인해야 열려요." }));
+
+    c.appendChild(el("h2", { class: "section__title page-sub", text: "내 페이지는 내가 관리해요" }));
+    var rules = el("div", { class: "rules" });
+    P.manage.forEach(function (r) {
+      rules.appendChild(el("div", { class: "rule" }, [
+        el("h3", { class: "rule__title", text: r.title }),
+        el("p", { class: "rule__text", text: r.body })
+      ]));
+    });
+    c.appendChild(rules);
+
+    var warn = el("div", { class: "callout callout--warn" });
+    warn.appendChild(el("p", { class: "callout__title", text: "올리기 전에 꼭" }));
+    var wl = el("ul");
+    P.rules.forEach(function (x) { wl.appendChild(el("li", { text: x })); });
+    warn.appendChild(wl);
+    c.appendChild(el("div", { class: "page-sub" }, warn));
+
+    c.appendChild(el("h2", { class: "section__title page-sub", text: P.practice.title }));
+    c.appendChild(el("p", { class: "page-lede", text: P.practice.lede }));
+    c.appendChild(el("pre", { class: "prompt-block prompt-block--example", text: P.practice.prompt }));
+    c.appendChild(el("div", { class: "copy-row" }, [
+      copyButton(function () { return P.practice.prompt; }, "실습 프롬프트 복사", "복사됐어요. 매뉴얼 파일을 붙인 새 대화에 붙여 넣으세요.")
+    ]));
+    c.appendChild(el("p", { class: "page-note", text: P.practice.after }));
+
+    c.appendChild(el("h2", { class: "section__title page-sub", text: "안내 다음은 학교별로, 회신까지" }));
+    var next = el("div", { class: "rules" });
+    P.next.forEach(function (r) {
+      next.appendChild(el("div", { class: "rule" }, [
+        el("h3", { class: "rule__title", text: "[" + r.tag + "] " + r.title }),
+        el("p", { class: "rule__text", text: r.body })
+      ]));
+    });
+    c.appendChild(next);
     $view.appendChild(c);
   }
 
@@ -1113,6 +1191,7 @@
     else if (r.name === "safety") renderSafety();
     else if (r.name === "cards") renderCards();
     else if (r.name === "skills") renderSkills();
+    else if (r.name === "publish") renderPublish();
     else renderHome();
     renderNav();
     window.scrollTo(0, 0);
