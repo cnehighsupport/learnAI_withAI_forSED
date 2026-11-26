@@ -571,8 +571,12 @@
     c.appendChild(el("p", { class: "page-note", text: "신청함은 우리 과 팀 계정으로 로그인해야 열려요." }));
     if (P.large) {
       var lg = el("div", { class: "rule" });
-      lg.appendChild(el("h3", { class: "rule__title", text: "큰 페이지·여러 파일이라면" }));
+      lg.appendChild(el("h3", { class: "rule__title", text: "한 파일로 안 되는 큰 사이트라면" }));
       lg.appendChild(el("p", { class: "rule__text", text: P.large }));
+      if (CONFIG.links.githubGuide) lg.appendChild(el("a", {
+        class: "ghost-btn link-btn", href: CONFIG.links.githubGuide, target: "_blank", rel: "noopener",
+        text: "GitHub 계정 만들고 Claude에 연결하기 ↗"
+      }));
       c.appendChild(el("div", { class: "page-sub" }, lg));
     }
 
