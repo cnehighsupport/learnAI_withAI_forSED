@@ -569,6 +569,12 @@
     }));
     c.appendChild(links);
     c.appendChild(el("p", { class: "page-note", text: "신청함은 우리 과 팀 계정으로 로그인해야 열려요." }));
+    if (P.large) {
+      var lg = el("div", { class: "rule" });
+      lg.appendChild(el("h3", { class: "rule__title", text: "큰 페이지·여러 파일이라면" }));
+      lg.appendChild(el("p", { class: "rule__text", text: P.large }));
+      c.appendChild(el("div", { class: "page-sub" }, lg));
+    }
 
     c.appendChild(el("h2", { class: "section__title page-sub", text: "내 페이지는 내가 관리해요" }));
     var rules = el("div", { class: "rules" });
